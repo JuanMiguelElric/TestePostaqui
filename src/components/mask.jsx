@@ -8,3 +8,10 @@ export const cpfMask = value =>{
     .replace(/(\d{3})(\d{1,2})/, '$1-$2')
     .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
 }
+export const phoneMask = (value) => {
+    if (!value) return ""; // Retorna uma string vazia se o valor for nulo ou indefinido
+    value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    value = value.replace(/(\d{2})(\d)/, "($1) $2"); // Adiciona parênteses e espaço após os primeiros 2 dígitos
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2"); // Adiciona hífen após o penúltimo dígito
+    return value;
+};

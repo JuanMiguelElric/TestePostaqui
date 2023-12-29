@@ -1,15 +1,20 @@
 import React,{useState}from "react";
 import LogoPostAqui from "../../image/postaqui.png";
 import "../../App.css";
-import { cpfMask } from "../../components/mask";
+import { cpfMask,phoneMask } from "../../components/mask";
 
 
 const PageHome=()=>{
     const [valor, setValor] = useState('');// constantes para o input cpf
+    const [phoneValor, setPhoneValor] = useState('');
 
     function CampoCpf(event){
         const {value}= event.target;
         setValor(cpfMask(value)) // mascara campo cpf
+    }
+    function handlePhone(event){
+        const {value} = event.target;
+        setPhoneValor(phoneMask(value))
     }
 
     return(
@@ -45,7 +50,7 @@ const PageHome=()=>{
                    
                     <label htmlFor="">
                         Telefone: <br />
-                        <input type="text" />
+                        <input type="text" onChange={handlePhone} value={phoneValor} />
                     </label>
                
                    
