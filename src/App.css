@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo {
+    margin-left: 4rem; 
+  }
+  
+  .containerlogo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 42px;
+    letter-spacing: 0em;
+    text-align: right;
+  }
+  
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    padding-left: 3em;
+    /*
+    font-family: 'Roboto', sans-serif;
+    background-color: #E1E1E1;
+    text-align: center; 
+    padding-left:3rem ;
+    padding-right: 3rem;
+    */
+  }
+
+  
+  .title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Adicione um preenchimento para afastar do conteúdo ao redor */
+  }
+  
+  .InputsdePreenchimento {
+    display: flex;
+    flex-wrap: wrap;;
+
+  }
+  
+  .InputsdePreenchimento label {
+    margin-right: 3em; 
+    margin-top: 3em;
+  }
+  
+  .InputsdePreenchimento label:last-child {
+    margin-right: 0;
+  }
+
+input{
+  width: 16em;
+  height: 2em;
+}
+  
