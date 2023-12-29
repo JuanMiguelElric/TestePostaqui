@@ -15,3 +15,6 @@ export const phoneMask = (value) => {
     value = value.replace(/(\d)(\d{4})$/, "$1-$2"); // Adiciona hífen após o penúltimo dígito
     return value;
 };
+export const cepMask = value =>{
+    return value.replace(/\D/g, "").replace(/^(\d{5})(\d{3})+?$/, "$1-$2")
+}

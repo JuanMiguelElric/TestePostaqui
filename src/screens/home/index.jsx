@@ -1,12 +1,13 @@
 import React,{useState}from "react";
 import LogoPostAqui from "../../image/postaqui.png";
 import "../../App.css";
-import { cpfMask,phoneMask } from "../../components/mask";
+import { cpfMask,phoneMask, cepMask } from "../../components/mask";
 
 
 const PageHome=()=>{
     const [valor, setValor] = useState('');// constantes para o input cpf
     const [phoneValor, setPhoneValor] = useState('');
+    const [cepValor, setCepValor] = useState('');
 
     function CampoCpf(event){
         const {value}= event.target;
@@ -66,7 +67,7 @@ const PageHome=()=>{
                   
                     <label htmlFor="">
                         CEP <br /> 
-                        <input type="text" />
+                        <input value={cepValor} onChange={(e) =>setCepValor(cepMask(e.target.value))} type="text" />
                     </label>
             
                   
