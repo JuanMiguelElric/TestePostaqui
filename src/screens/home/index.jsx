@@ -5,44 +5,73 @@ import { cpfMask, phoneMask } from "../../components/mask";
 import { useForm } from 'react-hook-form';
 
 const PageHome = () => {
-    const { register, handleSubmit, setValue, focus } = useForm();
-    const [valor, setValor] = useState(''); // constantes para o input cpf
+    const[nome,setNome] = useState();
+    const [valorCpf, setValorCpf] = useState(''); // constantes para o input cpf
     const [phoneValor, setPhoneValor] = useState('')
-    const [senderUser,setSenderuser] = useState({
-        name:'',
-        cpf:'',
-        phone:'',
-        email:'',
-        address:{
-            cep:'',
-            state:'',
-            uf:'',
-            city:'',
-            neighborhood:'',
-            street:'',
-            number:'',
-            complement:''
+    const [email,SetEmail] = useState();
+    const [cep,SetCep] = useState();
+    const [estado,Setestado]=useState();
+    const [cidade,SetCidade]=useState();
+    const [rua,setRua]=useState();
+    const [bairro,setBairro]=useState();
+    const[numero,setNumero]= useState();
+    const { register, setValue, focus } = useForm();
+    
+    const ReceiverInforms= ()=>{
+        const sender ={
+            fullname:nome,
+            cpf:valorCpf,
+            phone:phoneValor,
+            email:email,
+            address:{
+                cep:cep,
+                state:estado,
+                city:cidade,
+                neighborhood: bairro,
+                street:rua,
+                number:numero,
+                complement:null
+            }
+            
+            
         }
-    });
-    const MudacasInputs =(e)=>{
-        const {name,value}= e.target;
-        setSenderuser({
-            ...senderUser,
-            [name]:value,
-        });
-    };
-    function onSubmit(e) {
-        console.log(e);
+        const searchParams = new URLSearchParams();
+        searchParams.append('sender',JSON.stringify(sender));
+        console.log(sender)
     }
+
+    const nameBlur= (event) =>{
+        setNome("nome",event.target.value)
+    }
+
 
     function CampoCpf(event) {
         const { value } = event.target;
-        setValor(cpfMask(value)); // mascara campo cpf
+        setValorCpf(cpfMask(value)); // mascara campo cpf
     }
 
     function handlePhone(event) {
         const { value } = event.target;
         setPhoneValor(phoneMask(value));
+    }
+    const emailBlur = (event)=>{
+        SetEmail(event.target.value)
+    }
+    const estadoBlur = (event)=>{
+        Setestado(event.target.value)
+    }
+    const cidadeBlur = (event)=>{
+        SetCidade(event.target.value)
+    }
+    const bairroBlur =(event)=>{
+        setBairro(event.target.value)
+        
+    }
+    const ruaBlur = (event)=>{
+        setRua(event.target.value)
+    }
+    const numeroBlur = (event)=>{
+        setNumero(event.target.value)
     }
 
     function checkCEP(e) {
@@ -68,61 +97,66 @@ const PageHome = () => {
             </div>
             <div className="grid-container">
                 <div className="title">
-                    <h2>Dados de Origem</h2>
+                    <h2>{name}</h2>
                 </div>
                 <br />
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form >
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             Nome completo <br />
-                            <input type="text" {...register("fullName")} />
+                            <input type="text"  name="nome" onChange={nameBlur} {...register("name")} />
                         </label>
                         <label htmlFor="">
                             CPF: <br />
-                            <input onChange={CampoCpf} value={valor} type="text" />
+                            <input onChange={CampoCpf}  value={valorCpf} name="cpf"   type="text" />
                         </label>
                         <label htmlFor="">
                             Telefone: <br />
-                            <input type="text" onChange={handlePhone} value={phoneValor} />
+                            <input type="text" onChange={handlePhone} value={phoneValor}  />
                         </label>
                         <label htmlFor="">
                             E-mail <br />
-                            <input type="text" {...register("email")} />
+                            <input type="text" onChange={emailBlur} {...register("email")}  />
                         </label>
                     </div>
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             CEP <br />
-                            <input {...register("cep")} onChange={checkCEP} type="text" />
+                            <input {...register("cep")} onChange={checkCEP}  type="text" />
                         </label>
                         <label htmlFor="">
                             Estado <br />
-                            <input type="text" {...register("uf")} />
+                            <input type="text" onChange={estadoBlur} {...register("uf")}  />
                         </label>
                         <label htmlFor="">
                             Cidade <br />
-                            <input type="text" {...register("city")} />
+                            <input type="text" onChange={cidadeBlur} {...register("city")}  />
                         </label>
                         <label htmlFor="">
                             Bairro <br />
-                            <input type="text" {...register("neighborhood")} />
+                            <input type="text" onChange={bairroBlur} {...register("neighborhood")}  />
                         </label>
                         <label htmlFor="">
                             Rua <br />
-                            <input type="text" {...register("address")} />
+                            <input type="text" onChange={ruaBlur} {...register("address")}  />
                         </label>
                     </div>
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             Numero <br />
-                            <input type="text" {...register("addressNumber")} />
+                            <input type="text" onChange={numeroBlur} {...register("addressNumber")}  />
                         </label>
                         <label htmlFor="">
                             Complemento <br />
-                            <input type="text" {...register("complement")} />
+                            <input type="text" {...register("complement")}  />
                         </label>
                     </div>
-                </form>
+                    <div>
+                        <div>
+                            <button type="submit" onClick={ReceiverInforms}>Avançar</button>
+                        </div>
+                    </div>
+                </form>-
             </div>
         </>
     );
