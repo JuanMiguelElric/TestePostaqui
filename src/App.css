@@ -22,9 +22,10 @@
     flex-wrap: wrap;
     text-align: center;
     padding-left: 3em;
+    background-color: #E1E1E1;
+    border-radius: 2em;
     /*
     font-family: 'Roboto', sans-serif;
-    background-color: #E1E1E1;
     text-align: center; 
     padding-left:3rem ;
     padding-right: 3rem;

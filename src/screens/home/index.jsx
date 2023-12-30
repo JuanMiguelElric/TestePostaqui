@@ -8,7 +8,29 @@ const PageHome = () => {
     const { register, handleSubmit, setValue, focus } = useForm();
     const [valor, setValor] = useState(''); // constantes para o input cpf
     const [phoneValor, setPhoneValor] = useState('')
-
+    const [senderUser,setSenderuser] = useState({
+        name:'',
+        cpf:'',
+        phone:'',
+        email:'',
+        address:{
+            cep:'',
+            state:'',
+            uf:'',
+            city:'',
+            neighborhood:'',
+            street:'',
+            number:'',
+            complement:''
+        }
+    });
+    const MudacasInputs =(e)=>{
+        const {name,value}= e.target;
+        setSenderuser({
+            ...senderUser,
+            [name]:value,
+        });
+    };
     function onSubmit(e) {
         console.log(e);
     }
