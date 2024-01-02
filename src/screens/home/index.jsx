@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import LogoPostAqui from "../../image/postaqui.png";
+
 import "../../App.css";
 import { cpfMask, phoneMask } from "../../components/mask";
 import { useForm } from 'react-hook-form';
+import { HeaderPostaAqui } from "../../components/header";
 
 const PageHome = () => {
     const[nome,setNome] = useState();
@@ -89,15 +90,10 @@ const PageHome = () => {
 
     return (
         <>
-            <div className="container">
-                <div className="containerLogo">
-                    <img src={LogoPostAqui} className="logo" alt="" />
-                    <h1 style={{ fontSize: "36px" }}>Teste Calculadora Postaqui</h1>
-                </div>
-            </div>
+            <HeaderPostaAqui />
             <div className="grid-container">
                 <div className="title">
-                    <h2>{name}</h2>
+                    <h2>Dados de Origem</h2>
                 </div>
                 <br />
                 <form >
@@ -151,9 +147,9 @@ const PageHome = () => {
                             <input type="text" {...register("complement")}  />
                         </label>
                     </div>
-                    <div>
-                        <div>
-                            <button type="submit" onClick={ReceiverInforms}>Avançar</button>
+                    <div className="flexBox">
+                        <div className="formInput">
+                            <button type="submit" className="buttonSubmit" onClick={ReceiverInforms}>Avançar</button>
                         </div>
                     </div>
                 </form>-

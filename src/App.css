@@ -60,4 +60,33 @@ input{
   width: 16em;
   height: 2em;
 }
+.flexBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.formInput{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.formInput label{
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+
+.buttonSubmit{
+  padding: 10px 30px;
+  color: #fff;
+  background-color: #2D9CDB;
+  border:1px solid #2D9CDB;
+  border-radius: 15px;
+}
+.buttonSubmit:hover{
+  color:#2D9CDB;
+  background-color: #fff;
+}
   
