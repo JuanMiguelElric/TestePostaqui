@@ -1,13 +1,14 @@
 
 import './App.css'
-import PageHome from './screens/home'
+import Rotas from './route'
+
 
 function App() {
  
 
   return (
     <>
-      <PageHome />
+      <Rotas/>
    
     </>
   )

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "../../App.css";
 import { cpfMask, phoneMask } from "../../components/mask";
 import { useForm } from 'react-hook-form';
-import { HeaderPostaAqui } from "../../components/header";
+import  HeaderPostaAqui  from "../../components/header";
 
 const PageHome = () => {
     const[nome,setNome] = useState();
