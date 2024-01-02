@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { cpfMask, phoneMask } from "../../mask";
 
 
-const FormularioRemetente = () => {
+const FormularioRemetente = ({name}) => {
     const[nome,setNome] = useState();
     const [valorCpf, setValorCpf] = useState(''); // constantes para o input cpf
     const [phoneValor, setPhoneValor] = useState('')
@@ -93,7 +93,7 @@ const FormularioRemetente = () => {
         <>
             <div className="grid-container">
                 <div className="title">
-                    <h2>Dados de Origem</h2>
+                    <h2>{name}</h2>
                 </div>
                 <br />
                 <form >

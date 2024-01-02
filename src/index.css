@@ -7,3 +7,9 @@ body {
   background-color: #FFCD40;
 }
 
+.items-center{
+  align-items: center !important;
+}
+.vertical{
+  flex-direction: column;
+}

@@ -6,7 +6,7 @@ export default function PageHome(){
     return(
         <>
             <HeaderPostaAqui />
-            <FormularioRemetente />
+            <FormularioRemetente name="origem do pedido" />
         </>
     )
 }

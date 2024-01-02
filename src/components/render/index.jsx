@@ -1,5 +1,5 @@
-
-function Informações({name,data,link}){
+import "./style/index.css"
+function Informacoes({name,data,link}){
     return(
         <a href={link}>
 
@@ -12,3 +12,4 @@ function Informações({name,data,link}){
         </a>
     )
 }
+export default Informacoes

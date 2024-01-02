@@ -89,4 +89,10 @@ input{
   color:#2D9CDB;
   background-color: #fff;
 }
-  
+.infor{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
