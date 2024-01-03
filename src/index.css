@@ -23,9 +23,9 @@ body {
   justify-content:left;
   
 }
-
-
-
+label{
+  text-align: left;
+}
 .checkInput {
   height: 25px;
   width: 25px;
