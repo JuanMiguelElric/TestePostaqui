@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../../App.css"
-
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { cpfMask, phoneMask } from "../../mask";
 
@@ -8,12 +8,16 @@ const InputsReceiver = () =>{
     const [valorCpf, setValorCpf] = useState(''); // constantes para o input cpf
     const [phoneValor, setPhoneValor] = useState('')
     const {register, setValue, focus} = useForm();
+    const [cep,SetCep] = useState();
     const[nome,setNome] = useState();
     const [email,SetEmail] = useState();
     const [estado,Setestado]=useState();
     const [cidade,SetCidade]=useState();
+    const[numero,setNumero]= useState();
     const [rua,setRua]=useState();
     const [bairro,setBairro]=useState();
+
+    const navigate = useNavigate();
     function EnviarPacote(){
         const receiver = {
             fullname:nome,
@@ -27,12 +31,15 @@ const InputsReceiver = () =>{
                 neighborhood: bairro,
                 street:rua,
                 number:numero,
-                complement:null
+                complement:null,
+            
             }
         }
-        const searchParams = new URLSearchParams();
-        searchParams.append('sender',JSON.stringify(sender));
-        searchParams.append('receiver',JSON.stringify(receiver))
+        
+        localStorage.setItem('Receber', JSON.stringify(receiver))
+        navigate({
+            pathname:'/pacote'
+        })
 
     }
 
@@ -56,6 +63,10 @@ const InputsReceiver = () =>{
     function cidadeChange(event){
         SetCidade(event.target.value)
     }
+    const bairroBlur =(event)=>{
+        setBairro(event.target.value)
+        
+    }
     function RuaChange(event){
         setRua(event.target.value)
     }
@@ -65,75 +76,79 @@ const InputsReceiver = () =>{
         fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res=>res. json()).then(data=>{
             console.log(data);
             setValue('address',data.logradouro);
-            setValue('neighbirhood',data.bairro);
+            setValue('neighborhood', data.bairro);
             setValue('city',data.localidade);
             setValue('uf',data.uf);
             focus('addressNumber')
             
         });
+        
+    }
+    const numeroBlur = (event)=>{
+        setNumero(event.target.value)
     }
     return(
         <>
 
             <div className="grid-container">
                 <div className="title">
-                    <h2>Daods</h2>
+                    <h2>Dados</h2>
                 </div>
-                <form action="">
+                <form>
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             Nome Completo <br />
-                            <input type="text" onChange={Nomechange} name="name" {...register("name")} id="" />
+                            <input type="text" onChange={Nomechange} required name="name" {...register("name")} id="" />
                         </label>
                         <label htmlFor="">
                             CPF <br />
-                            <input type="text" onChange={CampoCpf} value={valorCpf} name="cpf" id="" />
+                            <input type="text" onChange={CampoCpf} required value={valorCpf} name="cpf" id="" />
                         </label>
                         <label htmlFor="">
                             Telefone <br />
-                            <input type="text" onChange={CampoPhone} value={phoneValor} name="" id="" />
+                            <input type="text" onChange={CampoPhone} required value={phoneValor} name="" id="" />
                         </label>
                         <label htmlFor="">
                             email <br />
-                            <input type="text" name="" onChange={EmailChange} {...register("email")} id="" />
+                            <input type="text" name="" required onChange={EmailChange} {...register("email")} id="" />
                         </label>
                     </div>
                     
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             CEP <br />
-                            <input {...register("cep")} onChange={CheckCep}  type="text" />
+                            <input {...register("cep")} onChange={CheckCep} required type="text" />
                         </label>
                         <label htmlFor="">
                             Estado <br />
-                            <input type="text" onChange={estadoChange} {...register("uf")}  />
+                            <input type="text" onChange={estadoChange} required {...register("uf")}  />
                         </label>
                         <label htmlFor="">
                             Cidade <br />
-                            <input type="text" onChange={cidadeChange} {...register("city")}  />
+                            <input type="text" onChange={cidadeChange} required {...register("city")}  />
                         </label>
                         <label htmlFor="">
                             Bairro <br />
-                            <input type="text"  {...register("neighborhood")}  />
+                            <input type="text" onChange={bairroBlur} required {...register("neighborhood")}  />
                         </label>
                         <label htmlFor="">
                             Rua <br />
-                            <input type="text" onChange={RuaChange} {...register("address")}  />
+                            <input type="text" onChange={RuaChange} required {...register("address")}  />
                         </label>
                     </div>
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             Numero <br />
-                            <input type="text"  {...register("addressNumber")}  />
+                            <input type="text" required onChange={numeroBlur} {...register("addressNumber")}  />
                         </label>
                         <label htmlFor="">
                             Complemento <br />
-                            <input type="text" {...register("complement")}  />
+                            <input type="text"  {...register("complement")}  />
                         </label>
                     </div>
                     <div className="flexBox">
                         <div className="formInput">
-                            <button className="buttonSubmit" onClick={EnviarPacote}>Avançar</button>
+                            <button type="button" className="buttonSubmit" onClick={EnviarPacote}>Avançar</button>
                         </div>
 
                     </div>

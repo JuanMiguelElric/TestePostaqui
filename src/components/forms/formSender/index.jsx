@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import "../../../App.css";
-
 import { useForm } from 'react-hook-form';
 import { cpfMask, phoneMask } from "../../mask";
+import { useNavigate } from "react-router-dom";
 
 
 const FormularioRemetente = ({name}) => {
@@ -19,6 +19,7 @@ const FormularioRemetente = ({name}) => {
     const[numero,setNumero]= useState();
     const { register, setValue, focus } = useForm();
     
+    const Navigate = useNavigate();
     const ReceiverInforms= ()=>{
         const sender ={
             fullname:nome,
@@ -37,9 +38,11 @@ const FormularioRemetente = ({name}) => {
             
             
         }
-        const searchParams = new URLSearchParams();
-        searchParams.append('sender',JSON.stringify(sender));
+        localStorage.setItem('dados', JSON.stringify(sender));
         console.log(sender)
+        Navigate({
+            pathname:'/destino'
+        })
     }
 
     const nameBlur= (event) =>{

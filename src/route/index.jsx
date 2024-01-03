@@ -9,7 +9,7 @@ const Rotas=()=>{
         <BrowserRouter>
             <Routes>
                     <Route path="/" element={<PageHome/>}/>
-                    <Route path="/isso" element={<PageDestinatario />}/>
+                    <Route path="/destino" element={<PageDestinatario />}/>
                     <Route path="/pacote" element={<PagePackage/>}/>
             </Routes>
         </BrowserRouter>
