@@ -1,3 +1,4 @@
+
 // component voltado para mascaras de CPF CEP e telefone
 
 export const cpfMask = value =>{
@@ -15,3 +16,16 @@ export const phoneMask = (value) => {
     value = value.replace(/(\d)(\d{4})$/, "$1-$2"); // Adiciona hífen após o penúltimo dígito
     return value;
 };
+export const MoneyMask = (value) => {
+    const valorNumerico = parseFloat(value.replace(/[\D]+/g, ''));
+    
+    // Verifica se valorNumerico é um número válido
+    if (!isNaN(valorNumerico)) {
+      const valorFormatado = valorNumerico.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+      return `R$${valorFormatado}`;
+    }
+  
+    // Se não for um número válido, retorna uma string vazia ou outra mensagem de erro, conforme necessário.
+    return '';
+};
+  

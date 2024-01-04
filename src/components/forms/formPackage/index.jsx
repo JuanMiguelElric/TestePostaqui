@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "../../../index.css"
+import { useNavigate } from "react-router-dom";
+import CurrencyInput from 'react-currency-masked-input';
 
-function FormularioPacote({name,sender,receiver}){
+function FormularioPacote({name}){
     const baseURL = "https://f29faec4-6487-4b60-882f-383b4054cc32.mock.pstmn.io/shipping_calculate";
 
     const[peso, setPeso]=useState();
@@ -14,6 +16,7 @@ function FormularioPacote({name,sender,receiver}){
     const[valorMerca,setvalorMerca]=useState();
     const[quanti, setQuantity]=useState();
     const[descri,setDescri]=useState()
+    const Navigate = useNavigate();
     
     const envioPacoteFinal=()=>{
         const pacote={
@@ -32,40 +35,16 @@ function FormularioPacote({name,sender,receiver}){
        
             }
         }
-        const searchParams = new URLSearchParams();
-        searchParams.append('sender',JSON.stringify(sender))
-        searchParams.append('receiver',JSON.stringify(receiver))
-        searchParams.append('pacote',JSON.stringify(pacote))
+        localStorage.setItem("pacote",JSON.stringify(pacote))
+        Navigate({
+            pathname:"/finally"
+        })
     }
-    function PesoINput(event){
-        setPeso(event.target.value);
+    function ValorMercadoria(event){
+        setvalorMerca(event.target.value);
 
     }
-    function AlturaInput(event){
-        setAltura(event.target.value);
 
-    }
-    function LarguraInput(event){
-        setLargura(event.target.value)
-    }
-    function ComprimentoInput(event){
-        setComprimento(event.target.value)
-    }
-    function LogisticaInput(event){
-        setlog(event.target.value)
-    }
-    function ReceberInput(event){
-        setAlertReceber(event.target.value)
-    }
-    function MaosPropriasInput(event){
-        setRetirada(event.target.value)
-    }
-    function valorMercadoria(event){
-        setvalorMerca(event.target.value)
-    }
-    function QuantidadeDeItens(event){
-        setQuantity(event.target.value)
-    }
     function DescricaoInput(event){
         let tamanho = event.target.value.length;
         if(tamanho >10){
@@ -81,17 +60,17 @@ function FormularioPacote({name,sender,receiver}){
             <div className="InputsdePreenchimento">
                 <div className="  items-center vertical">
                     <label htmlFor="">Peso <br />
-                        <input type="text" value={peso} onChange={PesoINput} />
+                        <input type="text" value={peso} onChange={(e) => setPeso(e.target.value)}  placeholder="                                               Peso"  />
                     </label>
                     <label htmlFor="">
                         Altura <br />
-                        <input type="text" value={altura} onChange={AlturaInput} />
+                        <input type="text" value={altura} placeholder="                                               Altura" onChange={(e)=>setAltura(e.target.value)} />
                     </label>
                     <label htmlFor="">Largura <br />
-                        <input type="text" value={largura} onChange={LarguraInput} />
+                        <input type="text" value={largura} placeholder="                                            Largura" onChange={(e)=>setLargura(e.target.value)} />
                     </label>
                     <label htmlFor="">Comprimento <br />
-                        <input type="text" value={comprimento} onChange={ComprimentoInput} />
+                        <input type="text" value={comprimento} placeholder="                                   Comprimento" onChange={(e)=>setComprimento(e.target.value)} />
                     </label>
 
                 </div>
@@ -103,17 +82,17 @@ function FormularioPacote({name,sender,receiver}){
                     
                     <div className="formInput items-center">
                         <label htmlFor="">Logistica Reversa</label>
-                        <input type="checkbox" className="checkInput" value={log} onChange={LogisticaInput} />
+                        <input type="checkbox" className="checkInput" value={log} onChange={(e)=>setlog(e.target.value)} />
 
                     </div>
                     <div className="formInput items-center">
                         <label htmlFor="">Aviso de Recebimento</label>
-                        <input className="checkInput" type="checkbox" value={alertReceber} onChange={ReceberInput} />
+                        <input className="checkInput" type="checkbox" value={alertReceber} onChange={(e)=>setAlertReceber(e.target.value)} />
 
                     </div>
                     <div className="formInput items-center">
                         <label htmlFor="">Mãos próprias</label>
-                        <input type="checkbox" value={retirada} onChange={MaosPropriasInput} />
+                        <input type="checkbox" value={retirada} onChange={(e)=>setRetirada(e.target.value)} />
 
                     </div>
 
@@ -126,7 +105,15 @@ function FormularioPacote({name,sender,receiver}){
                             <div className=" formInput" >
                                 <label htmlFor="">
                                     valor da mercadoria <br />
-                                <input type="text" value={valorMerca} onChange={valorMercadoria} />
+                                    <CurrencyInput
+                                        prefix={"$"}
+                                        id="input-example"
+                                        name="input-name"
+                                        decimalsLimit="2"
+                                        value={valorMerca}
+                                        onValueChange={ValorMercadoria}
+                                    />
+                                
 
                                 </label>
 
@@ -135,7 +122,7 @@ function FormularioPacote({name,sender,receiver}){
 
                                 <label htmlFor="">
                                     Quantidade de items <br />
-                                <input type="text" name="" value={quanti} onChange={QuantidadeDeItens} />
+                                <input type="text" name="" value={quanti} onChange={(e)=>setQuantity(e.target.value)} />
                                 </label>
                             </div>
 
@@ -143,7 +130,8 @@ function FormularioPacote({name,sender,receiver}){
                         <div className="flexBox widthTotal">
                             <div className="formInput">
                                 <label htmlFor="">descrição <br />
-                                <input type="text" className="descricao" value={descri} onChange={DescricaoInput} />
+                                <textarea  className="descricao" value={descri} onChange={DescricaoInput} cols="30" rows="10"></textarea>
+                   
                                 </label>
                             </div>
                         </div>
