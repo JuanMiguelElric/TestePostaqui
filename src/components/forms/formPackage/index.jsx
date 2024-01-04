@@ -82,6 +82,7 @@ function FormularioPacote({name,...inputProps}){
                     <label htmlFor="">Largura <br />
                         <input type="text" value={largura} placeholder="                                            Largura" onChange={(e)=>setLargura(e.target.value)} />
                     </label>
+                    
                     <label htmlFor="">Comprimento <br />
                         <input type="text" value={comprimento} placeholder="                                   Comprimento" onChange={(e)=>setComprimento(e.target.value)} />
                     </label>
