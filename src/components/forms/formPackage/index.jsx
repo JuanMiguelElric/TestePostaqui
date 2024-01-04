@@ -1,21 +1,36 @@
 import { useState } from "react";
 import "../../../index.css"
 import { useNavigate } from "react-router-dom";
-import CurrencyInput from 'react-currency-masked-input';
+import MaskedInput from 'react-text-mask'
 
-function FormularioPacote({name}){
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+const defaultMaskOptions = {
+    prefix: 'R$',
+    suffix: '',
+    includeThousandsSeparator: true,
+    thousandsSeparatorSymbol: ',',
+    allowDecimal: true,
+    decimalSymbol: '.',
+    decimalLimit: 2, 
+    integerLimit: 7, 
+    allowNegative: false,
+    allowLeadingZeroes: false,
+}
+
+function FormularioPacote({name,...inputProps}){
     const baseURL = "https://f29faec4-6487-4b60-882f-383b4054cc32.mock.pstmn.io/shipping_calculate";
 
-    const[peso, setPeso]=useState();
-    const[altura,setAltura]=useState();
-    const[largura,setLargura]=useState();
-    const[comprimento,setComprimento]=useState();
-    const[log,setlog]=useState();
-    const[alertReceber,setAlertReceber]=useState();
-    const[retirada, setRetirada]=useState();
-    const[valorMerca,setvalorMerca]=useState();
-    const[quanti, setQuantity]=useState();
-    const[descri,setDescri]=useState()
+    const[peso, setPeso]=useState('');
+    const[altura,setAltura]=useState('');
+    const[largura,setLargura]=useState('');
+    const[comprimento,setComprimento]=useState('');
+    const[log,setlog]=useState(false);
+    const[alertReceber,setAlertReceber]=useState(false);
+    const[retirada, setRetirada]=useState(false);
+    const[valorMerca,setvalorMerca]=useState('');
+    const[quanti, setQuantity]=useState('');
+    const[descri,setDescri]=useState('')
+    const currencyMask = createNumberMask(defaultMaskOptions)
     const Navigate = useNavigate();
     
     const envioPacoteFinal=()=>{
@@ -36,14 +51,12 @@ function FormularioPacote({name}){
             }
         }
         localStorage.setItem("pacote",JSON.stringify(pacote))
+        console.log(pacote)
         Navigate({
             pathname:"/finally"
         })
     }
-    function ValorMercadoria(event){
-        setvalorMerca(event.target.value);
 
-    }
 
     function DescricaoInput(event){
         let tamanho = event.target.value.length;
@@ -105,14 +118,7 @@ function FormularioPacote({name}){
                             <div className=" formInput" >
                                 <label htmlFor="">
                                     valor da mercadoria <br />
-                                    <CurrencyInput
-                                        prefix={"$"}
-                                        id="input-example"
-                                        name="input-name"
-                                        decimalsLimit="2"
-                                        value={valorMerca}
-                                        onValueChange={ValorMercadoria}
-                                    />
+                                    <input type="text" value={valorMerca} onChange={(e)=>setvalorMerca(e.target.value)} />
                                 
 
                                 </label>
