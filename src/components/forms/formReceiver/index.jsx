@@ -16,6 +16,7 @@ const InputsReceiver = () =>{
     const[numero,setNumero]= useState();
     const [rua,setRua]=useState();
     const [bairro,setBairro]=useState();
+    const[compremento,setCompremento]= useState();
 
     const navigate = useNavigate();
     function EnviarPacote(){
@@ -31,7 +32,7 @@ const InputsReceiver = () =>{
                 neighborhood: bairro,
                 street:rua,
                 number:numero,
-                complement:null,
+                comprement:compremento,
             
             }
         }
@@ -42,10 +43,10 @@ const InputsReceiver = () =>{
         })
 
     }
-
-    function Nomechange(event){
-        setNome("nome",event.target.value)
+    const nameBlur= (event) =>{
+        setNome(event.target.value)
     }
+
     function CampoPhone(event){
         const {value} = event.target;
         setPhoneValor(phoneMask(value));
@@ -70,22 +71,39 @@ const InputsReceiver = () =>{
     function RuaChange(event){
         setRua(event.target.value)
     }
-    const CheckCep =(e)=>{
-        const cep = e.target.value.replace(/\D/g,'');
+    function checkCEP(e) {
+        const cep = e.target.value.replace(/\D/g, '');
         console.log(cep);
-        fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res=>res. json()).then(data=>{
-            console.log(data);
-            setValue('address',data.logradouro);
-            setValue('neighborhood', data.bairro);
-            setValue('city',data.localidade);
-            setValue('uf',data.uf);
-            focus('addressNumber')
-            
-        });
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(res => res.json())
+        .then(data => {
+            if(data && !data.erro){
+                console.log(data);
+                setValue('cep',data.cep)
+                setValue('address', data.logradouro);
+                setValue('neighborhood', data.bairro);
+                setValue('city', data.localidade);
+                setValue('uf', data.uf);
+                SetCep(data.cep);
+                setBairro(data.bairro);
+                SetCidade(data.localidade);
+                setRua(data.logradouro)
+                Setestado(data.uf)
+
+
+    
+                
+
+            }else{
+                //tratando cep invalido
+                alert("Cep Invalido ou não encontrado");
+                console.error("cep Invalido ou não encontrado")
+            }
+        })
+        .catch(error=>{
+            console.error("Cep invalido",error)
+        })
         
-    }
-    const numeroBlur = (event)=>{
-        setNumero(event.target.value)
     }
     return(
         <>
@@ -98,15 +116,15 @@ const InputsReceiver = () =>{
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             Nome Completo <br />
-                            <input type="text" onChange={Nomechange} required name="name" {...register("name")} id="" />
+                            <input type="text" onChange={nameBlur}   value={nome} id="" />
                         </label>
                         <label htmlFor="">
                             CPF <br />
-                            <input type="text" onChange={CampoCpf} required value={valorCpf} name="cpf" id="" />
+                            <input type="text" onChange={CampoCpf} required value={valorCpf}  id="" />
                         </label>
                         <label htmlFor="">
                             Telefone <br />
-                            <input type="text" onChange={CampoPhone} required value={phoneValor} name="" id="" />
+                            <input type="text" onChange={CampoPhone} required value={phoneValor}  id="" />
                         </label>
                         <label htmlFor="">
                             email <br />
@@ -117,7 +135,7 @@ const InputsReceiver = () =>{
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             CEP <br />
-                            <input {...register("cep")} onChange={CheckCep} required type="text" />
+                            <input {...register("cep")} onChange={checkCEP} value={cep} required type="text" />
                         </label>
                         <label htmlFor="">
                             Estado <br />
@@ -139,11 +157,11 @@ const InputsReceiver = () =>{
                     <div className="InputsdePreenchimento">
                         <label htmlFor="">
                             Numero <br />
-                            <input type="text" required onChange={numeroBlur} {...register("addressNumber")}  />
+                            <input type="text"  value={numero} onChange={(e) => setNumero(e.target.value)}  />
                         </label>
                         <label htmlFor="">
                             Complemento <br />
-                            <input type="text"  {...register("complement")}  />
+                            <input type="text" value={compremento} onChange={(e) => setCompremento(e.target.value)}  />
                         </label>
                     </div>
                     <div className="flexBox">

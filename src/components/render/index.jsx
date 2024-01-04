@@ -1,15 +1,16 @@
 import "./style/index.css"
-function Informacoes({name,data,link}){
-    return(
-        <a href={link}>
+export default function Informacoes({ name, data, link, style }) {
+    console.log("Dados em Informacoes:", data);
 
-            <div className="info">
-                <h3>{name}</h3>
-                <p>{data.address.street}-{data.address.number}</p>
-                <p>{data.address.neighborhood}-{data.address.city}</p>
-                <p>{data.address.cep}</p>
+    return (
+        <a href={link}>
+            <div className={style}>
+                <h3 >{name}</h3>
+                <p>{data.fullname}-{data.cpf} <br />
+                    {data.address.cep}-{data.address.state}- {data.address.neighborhood}
+                    {data.address.city}-{data.address.street}-{data.address.number}-{data.address.comprement} <br />
+                    </p>
             </div>
         </a>
-    )
+    );
 }
-export default Informacoes

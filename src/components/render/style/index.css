@@ -1,7 +1,20 @@
 .card-infor{
-    width: 250px;
-    height: 120px;
-    background-color: #2D9CDB;
-    padding: 5px;
+    width: 20rem;
+    padding: 20px;
+    border-radius: 30px;
+}
+.orange{
+    background-color: #F2994A;
+}
+.blue{
+    background-color: #56CCF2;
+    ;
+}
+.card-infor p{
+    font-size: 12pt;
+}
+h3{
+    font-weight: 700;
+    font-size: 24px;
     text-align: center;
 }
